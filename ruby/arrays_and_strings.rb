@@ -33,7 +33,18 @@ class Arrays_And_Strings
     if(a.length != b.length)
       false
     else
-      a.chars.sort.join == b.chars.sort.join
+      char_counts(a) == char_counts(b)
+    end
+  end
+
+  def char_counts(string)
+    counts = Hash.new
+    string.each do |char|
+      if(counts.key?(char))
+        counts[char] += 1
+      else
+        counts[char] = 1
+      end
     end
   end
 end
