@@ -27,4 +27,13 @@ class Arrays_And_Strings
       return true
     end
   end
+
+  #given 2 strings decide if 1 is permutation of another
+  def permutation?(a, b)
+    if(a.length != b.length)
+      false
+    else
+      a.chars.sort.join == b.chars.sort.join
+    end
+  end
 end
