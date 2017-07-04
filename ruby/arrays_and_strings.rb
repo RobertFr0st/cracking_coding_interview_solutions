@@ -82,4 +82,21 @@ class Arrays_And_Strings
     diff_index = target.zip(verifier).find_index { |x| x[0] != x[1] }
     operation.to_proc.call(target, diff_index, verifier[diff_index]) == verifier
   end
+
+  #perform basic string compression using counts, aabcccccaaa -> a2b1c5a3
+  #only compress if result is actually smaller
+  def compress(string) 
+    result = ""
+    count = 0
+
+    (0..(string.length - 2)).each do |i|
+      count += 1
+      if(string[i] != string[i + 1])
+        result << "#{string[i]}#{count}"
+        count = 0
+      end
+    end
+
+    (result.length < string.length) ? result : string
+  end
 end
