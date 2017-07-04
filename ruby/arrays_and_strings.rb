@@ -49,8 +49,11 @@ class Arrays_And_Strings
   end
 
   #replace all spaces in a string with '%20'
-   #the ruby way
   def urlify(string)
     string.strip.gsub(/ /, '%20')
+  end
+
+  def palindrome_permutation?(string)
+    string.split("").uniq.length == ceil(string.length / 2.0)
   end
 end
