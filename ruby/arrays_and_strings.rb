@@ -66,29 +66,20 @@ class Arrays_And_Strings
       if(a == b)
         true
       else
-        one_replacement?(a, b)
+        one_operation?(a, b, :setbyte)
       end
     #insertion or deletion
     else
       if(a.length > b.length)
-        one_deletion?(a, b)
+        one_operation?(a, b, :insert)
       else
-        one_deletion?(b, 1)
+        one_operation?(b, a, :insert)
       end
     end
   end
 
-  def one_deletion?(one_delete, verifier)
-    diff_index = difference_index(one_delete, verifier)
-    one_delete.insert(diff_index, verifier[diff_index]) == verifier
-  end
-
-  def one_replacement?(one_replace, verifier)
-    diff_index = difference_index(one_replace, verifier)
-    one_replace.setbyte(diff_index, verifier[diff_index]) == verifier
-  end
-
-  def difference_index(a, b)
-    a.zip(b).find_index { |x| x[0] != x[1] }
+  def one_operation?(target, verifier, operation)
+    diff_index = target.zip(verifier).find_index { |x| x[0] != x[1] }
+    operation.to_proc.call(target, diff_index, verifier[diff_index]) == verifier
   end
 end
