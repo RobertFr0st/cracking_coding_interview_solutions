@@ -78,13 +78,9 @@ class Arrays_And_Strings
     end
   end
 
-  #based on length check we know if statement will always execute once
   def one_deletion?(one_delete, verifier)
-    (0..(verifier.length - 1)).each do |i|
-      if(one_delete[i] != verifier[i])
-        return one_delete.insert(i, verifier[i]) == verifier
-      end
-    end
+    diff_index = one_delete.zip(verifier).find_index { |x| x[0] != x[1] }
+    one_delete.insert(diff_index, verifier[diff_index]) == verifier
   end
 
   def one_replacement?(a, b)
