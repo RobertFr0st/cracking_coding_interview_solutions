@@ -79,22 +79,16 @@ class Arrays_And_Strings
   end
 
   def one_deletion?(one_delete, verifier)
-    diff_index = one_delete.zip(verifier).find_index { |x| x[0] != x[1] }
+    diff_index = difference_index(one_delete, verifier)
     one_delete.insert(diff_index, verifier[diff_index]) == verifier
   end
 
-  def one_replacement?(a, b)
-    replacement? = false
-    (0..(a.length - 1)).each do |i|
-      if(a[i] != b[i])
-        if(replacement?)
-          return false;
-        else
-          replacement? = true
-        end
-      end
-    end
+  def one_replacement?(one_replace, verifier)
+    diff_index = difference_index(one_replace, verifier)
+    one_replace.setbyte(diff_index, verifier[diff_index]) == verifier
+  end
 
-    return true
+  def difference_index(a, b)
+    a.zip(b).find_index { |x| x[0] != x[1] }
   end
 end
