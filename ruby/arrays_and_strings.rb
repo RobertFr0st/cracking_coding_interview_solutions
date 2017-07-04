@@ -47,4 +47,10 @@ class Arrays_And_Strings
       end
     end
   end
+
+  #replace all spaces in a string with '%20'
+   #the ruby way
+  def urlify(string)
+    string.strip.gsub(/ /, '%20')
+  end
 end
