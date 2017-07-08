@@ -164,4 +164,38 @@ class Arrays_And_Strings
 
     matrix
   end
+
+  #check for rotated string, only 1 call to substring allowed
+  def string_rotate?(parent, rotation)
+    possible_starts = Array.new()
+    rotation.each do |i|
+      if(parent[0] == rotation[i])
+        possible_starts.push(i)
+      end
+    end
+
+    possible_starts.map do |start|
+      length = 0
+      (0..(parent.length - 1)).each do |offset|
+        #this works assuming no null bytes
+        if(parent[offset] == rotation[start + offset])
+          length += 1
+        else
+          break
+        end
+      end
+
+      [start, length]
+    end
+
+    longest_match = possible_starts.max { |a,b| a[1] <=> b[1]}
+    start = longest_match[0]
+    length = longest_match[1]
+    head = rotation.slice(start, start + length - 1)
+    tail = start ? rotation.slice(0, start - 1) : ""
+
+    unrotate =  head + tail
+
+    parent == unrotate
+  end
 end
