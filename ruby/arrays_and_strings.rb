@@ -103,22 +103,31 @@ class Arrays_And_Strings
   #given an image representing an NxN matrix where each pixel is 4 bytes
   #rotate the image by 90 degrees.  Prefereably in place
   #since this is ruby we are going to assert each integer is 4 bytes even though it may not be
-  def rotate_matrix(read_image, direction=:right)
-    write_image = Array.new(image.length) { Array.new(image.length) }
+  def rotate_matrix(image, direction=:right)
+    half = ((image.length.odd?) ? image.length / 2 : (image.length / 2 - 1))
 
-    n = 0..(read_image.length - 1)
-    n.each do |i|
-      n.each do |j|
-        ij = rotate_destination(i, j, direction)
-        write_image[ij[0]][ij[1]] = read_image[i][j]
+    0..half do |i|
+      (0..(image.length - 1)).each do |j|
+        ij0 = rotate_destination([i, j], direction)
+        ij1 = rotate_destination(ij0, direction)
+        ij2 = rotate_destination(ij0, direction)
+        
+        register              = image[ij0[0]]][ij0[1]]
+        image[ij0[0]][ij0[1]] = image[i][j]
+        image[i][j]           = image[ij2[0]]][ij2[1]]
+        image[ij2[0]][ij3[1]] = image[ij1[0]]][ij1[1]]
+        image[ij1[0]][ij1[1]] = register
       end
     end
 
-    write_image
+    image
   end
 
   #thanks to negative index's we don't care about length
-  def rotate_destination(i, j, direction)
+  def rotate_destination(ij, direction)
+    i = ij[0]
+    j = ij[1]
+
     if(direction == :right)
       [-1 - j, i]
     elsif(direction == :left)
