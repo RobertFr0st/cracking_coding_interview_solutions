@@ -104,10 +104,8 @@ class Arrays_And_Strings
   #rotate the image by 90 degrees.  Prefereably in place
   #since this is ruby we are going to assert each integer is 4 bytes even though it may not be
   def rotate_matrix(image, direction=:right)
-    half = ((image.length.odd?) ? image.length / 2 : (image.length / 2 - 1))
-
-    0..half do |i|
-      (0..(image.length - 1)).each do |j|
+    0..(image.length / 2 - 1) do |i|
+      ((0 + i)..(image.length - 1 - i)).each do |j|
         ij0 = rotate_destination([i, j], direction)
         ij1 = rotate_destination(ij0, direction)
         ij2 = rotate_destination(ij0, direction)
