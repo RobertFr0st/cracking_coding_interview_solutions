@@ -134,4 +134,34 @@ class Arrays_And_Strings
      nil
     end
   end
+
+  #zero out entire row & column where 0 found assume NxM
+  def zero_matrix(matrix)
+    n_range = 0..(matrix.length - 1)
+    m_range = 0..(matrix[0].length - 1)
+    zero_indexes = Array.new()
+
+    n_range.each do |i|
+      m_range.each do |j|
+        if(matrix[i][j] == 0)
+          zero_indexes.push([i,j])
+        end
+      end
+    end
+
+    ij = zero_indexes.transpose
+
+    matrix = set_zero(matrix, ij[0], m_range)
+    set_zero(matrix, n_range, ij[1])
+  end
+
+  def set_zero(matrix, is, js)
+    is.each do |i|
+      js.each do |j|
+        matrix[i][j] = 0
+      end
+    end
+
+    matrix
+  end
 end
