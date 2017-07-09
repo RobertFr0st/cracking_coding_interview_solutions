@@ -9,18 +9,18 @@ int32_t insertion(int32_t host, int32_t parasite, int start, int end)
 {
   //host: 000, parasite: 1, start = 1, end = 1
   int32_t mask = ~0;//111
-  mask <<= start + 1//100
-  mask |= (~0) >> (32 - end)//101
-  host &= mask
-  host |= (parasite << end)
+  mask <<= start + 1;//100
+  mask |= (~0) >> (32 - end);//101
+  host &= mask;
+  return host | (parasite << end);
 }
 
 
 //expected input format is function name then its arguments
 int main(int argc, char **argv)
 {
-//  if(argv[1] == "insertion")
-    return insertion(atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]))
+  if(argv[1] == "insertion")
+    return insertion(atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
 /*  else if(argv[1] == "binary_to_string")
     return binary_to_string()
   else if(argv[1] == "flip_bit_to_win")
