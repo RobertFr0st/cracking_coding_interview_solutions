@@ -1,10 +1,6 @@
 class Arrays_And_Strings
   require 'set'
 
-  def initialize()
-     @name = name.capitalize
-  end
-
   #Implement an algorithm to determine if a string has all unique characters.
   #What if you cannot use additional data structures?
   def unique?(string, additional_data_structures=true)
