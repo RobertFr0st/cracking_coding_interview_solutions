@@ -45,7 +45,7 @@ int flip_bit_to_win(int bits)
     score = score(set_bit(bits, i));
     if(score > best_score) best_score = score;
   }
-  return best_score
+  return best_score;
 }
 
 //given real number between 0 and 1
