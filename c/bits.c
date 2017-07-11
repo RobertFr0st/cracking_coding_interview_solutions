@@ -2,6 +2,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//given a positive integer print the next largest & smallest number
+//with same number of 1 bits
+int* next_number(int number)
+{
+  int* high_low = (int*) malloc((2)*sizeof(int));
+
+
+  //find lowest bit which is 1 and next bit is 0
+  int high_bit;
+  for(high_bit = 0; (1 << high_bit) <= number; high_bit++)
+    if(((1 << high_bit) & number) && !((1 << (high_bit + 1)) & number))
+      break;
+  high_low[0] = number + (1 << high_bit);
+
+  //find lowest bit where 1 is before 0
+  int low_bit;
+  for(low_bit = 0; (1 << low_bit) <= number; low_bit++)
+    if(((1 << (low_bit + 1)) & number) && !((1 << low_bit) & number))
+      break;
+
+  //special case for all 1's need to shift by 1 then decrement
+  if((1 << low_bit) > number)
+    high_low[1] = (number << 1) - 1;
+  else
+    high_low[1] = number - (1 << (low_bit + 1));
+
+  return high_low;
+}
+
 int set_bit(int bits, int bit_position)
 {
   return bits | (1 << bit_position);
@@ -103,9 +132,12 @@ int main(int argc, char **argv)
     printf("%s\n", binary_to_string(atof(argv[2])));
   else if(argv[1] == "flip_bit_to_win")
     printf("%d\n", flip_bit_to_win(atoi(argv[2])));
-/*  else if(argv[1] == "next_number")
-    return next_number()
-  else if(argv[1] == "debugger")
+  else if(argv[1] == "next_number")
+  {
+    int* next_numbers = next_number(argv[2]);
+    printf("%d %d\n", next_numbers[0], next_numbers[1]);
+  }
+/*  else if(argv[1] == "debugger")
     return debugger()
   else if(argv[1] == "conversion")
     return conversion()
